@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Flysystem\ImageKitAdapter;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use ImageKit\ImageKit;
 use League\Flysystem\Filesystem;
-use League\MimeTypeDetection\Generation\FlysystemProvidedMimeTypeProvider;
 
 class ImageKitServiceProvider extends ServiceProvider
 {
@@ -18,10 +18,12 @@ class ImageKitServiceProvider extends ServiceProvider
                 $config['public_key'],
                 $config['private_key'],
                 $config['url_endpoint'],
-
             );
 
-            return new Filesystem(new ImageKitAdapter($imageKit));
+            $adapter = new ImageKitAdapter($imageKit);
+            $filesystem = new Filesystem($adapter);
+
+            return new FilesystemAdapter($filesystem, $adapter, $config);
         });
     }
 }
