@@ -27,12 +27,12 @@ class ImageKitAdapter implements FilesystemAdapter
 
     public function read(string $path): string
     {
-        return file_get_contents($this->publicUrl($path));
+        return file_get_contents($this->getUrl($path));
     }
 
     public function readStream(string $path)
     {
-        return fopen($this->publicUrl($path), 'r');
+        return fopen($this->getUrl($path), 'r');
     }
 
     public function delete(string $path): void
@@ -85,8 +85,8 @@ class ImageKitAdapter implements FilesystemAdapter
         return true;
     }
 
-    public function publicUrl(string $path): string
+    public function getUrl(string $path)
     {
-        return env('IMAGEKIT_URL_ENDPOINT') . '/' . $path;
+        return rtrim(env('IMAGEKIT_URL_ENDPOINT'), '/') . '/' . ltrim($path, '/');
     }
 }

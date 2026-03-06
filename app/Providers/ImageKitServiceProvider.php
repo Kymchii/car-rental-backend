@@ -23,7 +23,9 @@ class ImageKitServiceProvider extends ServiceProvider
             $adapter = new ImageKitAdapter($imageKit);
             $filesystem = new Filesystem($adapter);
 
-            return new FilesystemAdapter($filesystem, $adapter, $config);
+            return new FilesystemAdapter($filesystem, $adapter, $config, function ($path) use ($config) {
+                return rtrim($config['url_endpoint'], '/') . '/' . ltrim($path, '/');
+            });
         });
     }
 }
