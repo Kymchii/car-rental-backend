@@ -13,11 +13,16 @@ class ImageKitAdapter implements FilesystemAdapter
 
     public function write(string $path, string $contents, Config $config): void
     {
-        $this->imageKit->uploadFile([
+        $response = $this->imageKit->uploadFile([
             'file' => base64_encode($contents),
             'fileName' => basename($path),
             'folder' => dirname($path),
+            'useUniqueFileName' => false, // matikan unique filename
         ]);
+
+        if ($response->error) {
+            throw new \Exception('ImageKit upload failed: ' . json_encode($response->error));
+        }
     }
 
     public function writeStream(string $path, $contents, Config $config): void
