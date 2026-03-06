@@ -63,7 +63,7 @@ class ImageKitAdapter implements FilesystemAdapter
 
     public function fileSize(string $path): FileAttributes
     {
-        return new FileAttributes($path);
+        return new FileAttributes($path, 0);
     }
 
     public function listContents(string $path, bool $deep): iterable
