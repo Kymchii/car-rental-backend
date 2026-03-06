@@ -35,10 +35,7 @@ class ImageKitAdapter implements FilesystemAdapter
         return fopen($this->getUrl($path), 'r');
     }
 
-    public function delete(string $path): void
-    {
-        // implement if needed
-    }
+    public function delete(string $path): void {}
 
     public function deleteDirectory(string $path): void {}
 
@@ -46,19 +43,30 @@ class ImageKitAdapter implements FilesystemAdapter
 
     public function setVisibility(string $path, string $visibility): void {}
 
-    public function visibility(string $path): \League\Flysystem\FileAttributes
+    public function visibility(string $path): FileAttributes
     {
-        return new FileAttributes($path);
+        return new FileAttributes($path, null, 'public');
     }
 
     public function mimeType(string $path): FileAttributes
     {
-        return new FileAttributes($path);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        $mimeTypes = [
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png'  => 'image/png',
+            'gif'  => 'image/gif',
+            'webp' => 'image/webp',
+        ];
+
+        $mimeType = $mimeTypes[strtolower($extension)] ?? 'application/octet-stream';
+
+        return new FileAttributes($path, null, null, null, $mimeType);
     }
 
     public function lastModified(string $path): FileAttributes
     {
-        return new FileAttributes($path);
+        return new FileAttributes($path, null, null, time());
     }
 
     public function fileSize(string $path): FileAttributes
@@ -85,7 +93,7 @@ class ImageKitAdapter implements FilesystemAdapter
         return true;
     }
 
-    public function getUrl(string $path)
+    public function getUrl(string $path): string
     {
         return rtrim(env('IMAGEKIT_URL_ENDPOINT'), '/') . '/' . ltrim($path, '/');
     }
