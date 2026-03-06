@@ -1,5 +1,7 @@
 FROM dunglas/frankenphp:php8.2-bookworm
 
+ARG CACHEBUST=1
+
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libzip-dev libicu-dev \
     && docker-php-ext-install intl zip pdo pdo_mysql \
