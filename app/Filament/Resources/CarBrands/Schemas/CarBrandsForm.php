@@ -13,14 +13,14 @@ class CarBrandsForm
         return $schema
             ->components([
                 TextInput::make('name')
-                ->required()
-                ->maxLength(255),
+                    ->required()
+                    ->maxLength(255),
                 FileUpload::make('logo')
-                ->image()
-                ->imageEditor()
-                ->directory('car-brands')
-                ->visibility('public')
-                ->disk('public')
+                    ->image()
+                    ->imageEditor()
+                    ->directory('car-brands')
+                    ->visibility('public')
+                    ->disk('cloudinary')
             ]);
     }
 }

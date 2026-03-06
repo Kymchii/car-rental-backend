@@ -27,7 +27,7 @@ class CarTypesForm
                     'mpv' => 'MPV',
                 ]),
                 TextInput::make('color')->required(),
-                FileUpload::make('photo')->image()->imageEditor()->directory('car-models')->visibility('public')->disk('public'),
+                FileUpload::make('photo')->image()->imageEditor()->directory('car-models')->visibility('public')->disk('cloudinary'),
             ]);
     }
 }
