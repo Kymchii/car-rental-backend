@@ -16,4 +16,12 @@ RUN mkdir -p storage/framework/{sessions,views,cache,testing} storage/logs boots
     && chmod -R a+rw storage
 
 EXPOSE 8080
+
+RUN php artisan config:clear
+```
+
+**3. Atau coba ubah format `.env`** menjadi seperti ini:
+```
+CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+
 CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
