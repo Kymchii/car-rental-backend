@@ -60,7 +60,7 @@ return [
             'report' => false,
         ],
 
-        'imageKit' => [
+        'imagekit' => [
             'driver' => 'imagekit',
             'public_key' => env('IMAGEKIT_PUBLIC_KEY'),
             'private_key' => env('IMAGEKIT_PRIVATE_KEY'),
