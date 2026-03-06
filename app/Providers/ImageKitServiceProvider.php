@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Flysystem\ImageKitAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use ImageKit\ImageKit;
