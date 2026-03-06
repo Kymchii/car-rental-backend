@@ -20,7 +20,7 @@ class CarBrandsForm
                     ->imageEditor()
                     ->directory('car-brands')
                     ->visibility('public')
-                    ->disk('cloudinary')
+                    ->disk('imagekit')
             ]);
     }
 }
